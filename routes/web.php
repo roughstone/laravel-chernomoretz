@@ -25,7 +25,7 @@ Route::resource('athletes', 'AthleteController')->middleware('auth');
 
 Route::resource('payments', 'PaymentController')->middleware('auth');
 
-Route::put('month/{month}', 'MonthController@update')->name('month')/* ->middleware('auth')*/;
+Route::put('month/{month}', 'MonthController@update')->name('month')->middleware('auth');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

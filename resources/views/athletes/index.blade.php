@@ -3,7 +3,7 @@
 @section('content')
     @foreach ($dataset as $data)
         <div class="row col-12 col-sm-4 col-lg-3 border border-info text-white">
-            <a class="text-center bg-primary col-12 p-0 m-0" href="{{ route('athletes.show', $data->id) }}"
+            <a class="text-center bg-primary col-12 p-0 m-0" href="{{ route('athletes.show', $data->id) }}">
                 <span>{{$data->f_name}}</span> <span>{{$data->m_name}}</span> <span>{{$data->l_name}}</span>
             </a>
             <a class="col-3 px-0" href="{{ route('athletes.show', $data->id) }}">
