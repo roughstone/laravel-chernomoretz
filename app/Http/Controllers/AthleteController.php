@@ -74,6 +74,9 @@ class AthleteController extends Controller
         $addThreeMonths = $AthleteModel->getCurrentThreeMonths();
         $AthleteModel = new AthleteModel($addThreeMonths);
         $current_athlete = $AthleteModel->allMonths();
+        foreach ($current_athlete[0]->payments as $payment) {
+            $payment->month;
+        }
         return view('athletes/show', ['data' => $current_athlete[0]]);
     }
 

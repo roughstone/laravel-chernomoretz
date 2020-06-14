@@ -11,4 +11,7 @@ class Month extends Model
     protected $fillable = [
         'athlete_id', 'date', 'active', 'paid',
     ];
+    public function payment() {
+        return $this->hasMany('App\Payment');
+    }
 }

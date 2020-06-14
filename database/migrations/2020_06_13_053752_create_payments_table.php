@@ -15,6 +15,10 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->integer('month_id');
+            $table->string('reason');
+            $table->boolean('paid')->default(false);
+            $table->float('amount', 8, 2);
             $table->timestamps();
         });
     }

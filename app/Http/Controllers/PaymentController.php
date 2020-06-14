@@ -8,56 +8,26 @@ use Illuminate\Http\Request;
 class PaymentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('payments/index'/* , ['dataset' => $athletes] */);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-    return view('payments/create'/* , ['dataset' => $athletes] */);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        return view('payments/show'/* , ['dataset' => $athletes] */);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        return view('payments/create'/* , ['dataset' => $athletes] */);
+        try {
+            $athlete = new Payment();
+            $athlete->month_id = $id;
+            if (strrpos($request->get('amount'), '.' > -1)) {
+                $amount = floatval($request->get('amount').'.00');
+            }
+            $athlete->reason = $request->get('reason');
+            $athlete->amount = $amount;
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            $request->session()->flash('msg', 'Възникна грешка! Моля опитайте отново!');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -69,17 +39,19 @@ class PaymentController extends Controller
      */
     public function update(Request $request, Payment $payment)
     {
-        //
-    }
+        if (!empty($request->get('record'))) {
+            $payment->update([
+                $request->get('record') => (int)$request->get('update')
+            ]);
+            return response()->json(['status' => 200, 'msg' => 'ok']);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
+        if(!empty($request->get('reason'))) {
+            $payment->update([
+                'reason' => $request->get('reason'),
+                'amount' => floatval($request->get('amount'))
+            ]);
+            return response()->json(['status' => 200, 'msg' => 'ok']);
+        }
     }
 }

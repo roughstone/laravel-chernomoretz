@@ -3,8 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Month;
-use App\Helpers\MonthHelper;
 
 class Athlete extends Model
 {
@@ -14,5 +12,8 @@ class Athlete extends Model
     ];
     public function months() {
         return $this->hasMany('App\Month');
+    }
+    public function payments() {
+        return $this->hasManyThrough('App\Payment', 'App\Month');
     }
 }
