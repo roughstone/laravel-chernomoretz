@@ -14,4 +14,7 @@ class Month extends Model
     public function payment() {
         return $this->hasMany('App\Payment');
     }
+    public function athlete () {
+        return $this->belongsTo('App\Athlete');
+    }
 }

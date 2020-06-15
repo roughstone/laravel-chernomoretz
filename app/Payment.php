@@ -8,7 +8,7 @@ class Payment extends Model
 {
     protected $table = 'payments';
     protected $fillable = [
-        'reason', 'amount', 'active', 'paid'
+        'month_id', 'reason', 'amount', 'active', 'paid'
     ];
     public function athlete() {
         return $this->hasOneThrough('App\Month', 'App\Payment');

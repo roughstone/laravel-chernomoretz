@@ -15,6 +15,7 @@ class MonthController extends Controller
      */
     public function show(Month $month)
     {
+        $month->athlete = $month->athlete;
         return view('months/show',['data' => $month]);
     }
 
@@ -27,9 +28,13 @@ class MonthController extends Controller
      */
     public function update(Request $request, Month $month)
     {
-        $month->update([
-            $request->get('record') => (int)$request->get('update')
-        ]);
-        return response()->json(['status' => 200, 'msg' => 'ok']);
+        try {
+            $month->update([
+                $request->get('record') => (int)$request->get('update')
+            ]);
+            return response()->json(['status' => 200, 'msg' => 'ok']);
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
     }
 }

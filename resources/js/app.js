@@ -27,13 +27,19 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
 
+import Swal from 'sweetalert2'
+window.Swal = Swal;
+
+import VueSweetalert2 from 'vue-sweetalert2';
+Vue.use(VueSweetalert2);
 var processInclude = require('./util');
 $(document).ready(function () {
     processInclude(require('./components/home'));
     processInclude(require('./components/forms'));
     processInclude(require('./components/athletes'));
+});
+
+const app = new Vue({
+    el: '#app',
 });

@@ -16,17 +16,15 @@ class PaymentController extends Controller
     public function store(Request $request, $id)
     {
         try {
-            $athlete = new Payment();
-            $athlete->month_id = $id;
-            if (strrpos($request->get('amount'), '.' > -1)) {
-                $amount = floatval($request->get('amount').'.00');
-            }
-            $athlete->reason = $request->get('reason');
-            $athlete->amount = $amount;
-            return redirect()->back();
+            $payment = new Payment();
+            $payment->month_id = $id;
+            $payment->reason = $request->get('reason');
+            $payment->amount = $request->get('amount');
+            $payment->save();
+            return response()->json(['status' => 200, 'msg' => 'ok']);
         } catch (\Throwable $th) {
             $request->session()->flash('msg', 'Възникна грешка! Моля опитайте отново!');
-            return redirect()->back();
+            return response()->json(['status' => 500, 'error' => $th]);
         }
     }
 

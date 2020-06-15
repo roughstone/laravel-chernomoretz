@@ -124,6 +124,12 @@ class AthleteController extends Controller
      */
     public function destroy(Athlete $athlete)
     {
-        //
+        foreach ($athlete->months as $month) {
+            $month->delete();
+        }
+        foreach ($athlete->payments as $payment) {
+            $payment->delete();
+        }
+        $athlete->delete();
     }
 }
