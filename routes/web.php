@@ -23,9 +23,11 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout');;
 
 Route::resource('athletes', 'AthleteController')->middleware('auth');
 
-Route::resource('payments', 'PaymentController')->middleware('auth');
+Route::post('/payments/{id}/store', 'PaymentController@store')->name('payments.store')->middleware('auth');
+Route::put('/payments/{payment}/update', 'PaymentController@update')->name('payments.update')->middleware('auth');
 
-Route::put('month/{month}', 'MonthController@update')->name('month')->middleware('auth');
+Route::get('month/{month}', 'MonthController@show')->name('month.show')->middleware('auth');
+Route::put('month/{month}', 'MonthController@update')->name('month.update')->middleware('auth');
 
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -6,5 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    //
+    protected $table = 'payments';
+    protected $fillable = [
+        'month_id', 'reason', 'amount', 'active', 'paid'
+    ];
+    public function athlete() {
+        return $this->hasOneThrough('App\Month', 'App\Payment');
+    }
+    public function month() {
+        return $this->belongsTo('App\Month');
+    }
 }

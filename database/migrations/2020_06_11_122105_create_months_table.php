@@ -18,6 +18,7 @@ class CreateMonthsTable extends Migration
             $table->string('athlete_id');
             $table->string('date_bg');
             $table->date('date');
+            $table->float('amount', 8, 2)->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('paid')->default(false);
             $table->timestamps();
